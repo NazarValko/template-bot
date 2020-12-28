@@ -1,3 +1,16 @@
+
+------------------CONNECTOR------------------
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.37</version>
+</dependency>
+
+
+
+
+<----------------CODE------------------>
+
 package org.example.bot;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,13 +75,13 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (searchText.equals("/login")){
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
-                        .setText("Введіть ім'я: ");
+                        .setText("Г‚ГўГҐГ¤ВіГІГј ВіГ¬'Гї: ");
                 String username = update.getMessage().getText();
                 profile.getUserByUsernameByPassword(username);
                 if (profile == null){
                     SendMessage message1 = new SendMessage()
                             .setChatId(chatId)
-                            .setText("Ім'я користувача неправильне");
+                            .setText("ВІГ¬'Гї ГЄГ®Г°ГЁГ±ГІГіГўГ Г·Г  Г­ГҐГЇГ°Г ГўГЁГ«ГјГ­ГҐ");
                 }
 
                 try {
@@ -80,7 +93,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             else if (searchText.equals("/start")) {
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
-                        .setText(EmojiParser.parseToUnicode(":wave:Бот для пошуку музики:wave:"));
+                        .setText(EmojiParser.parseToUnicode(":wave:ГЃГ®ГІ Г¤Г«Гї ГЇГ®ГёГіГЄГі Г¬ГіГ§ГЁГЄГЁ:wave:"));
 
                 ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
                 message.enableMarkdown(true);
@@ -91,12 +104,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                 KeyboardRow row = new KeyboardRow();
 
-                row.add("Музика");
+                row.add("ГЊГіГ§ГЁГЄГ ");
                 keyboard.add(row);
                 keyboardMarkup.setKeyboard(keyboard);
                 message.setReplyMarkup(keyboardMarkup);
 
-                row.add("Фільми");
+                row.add("Г”ВіГ«ГјГ¬ГЁ");
                 keyboardMarkup.setKeyboard(keyboard);
                 message.setReplyMarkup(keyboardMarkup);
 
@@ -106,7 +119,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
 
-            } else if (searchText.equals("Музика")) {
+            } else if (searchText.equals("ГЊГіГ§ГЁГЄГ ")) {
                 try {
                     SendMessage message = new SendMessage()
                             .setChatId(chatId)
@@ -120,10 +133,10 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                     KeyboardRow row = new KeyboardRow();
 
-                    row.add("Знайти пісню");
-                    row.add("Створити плейлист");
-                    row.add("Прослухані пісні");
-                    row.add("Знайти виконавця");
+                    row.add("Г‡Г­Г Г©ГІГЁ ГЇВіГ±Г­Гѕ");
+                    row.add("Г‘ГІГўГ®Г°ГЁГІГЁ ГЇГ«ГҐГ©Г«ГЁГ±ГІ");
+                    row.add("ГЏГ°Г®Г±Г«ГіГµГ Г­Ві ГЇВіГ±Г­Ві");
+                    row.add("Г‡Г­Г Г©ГІГЁ ГўГЁГЄГ®Г­Г ГўГ¶Гї");
                     keyboard.add(row);
 
                     keyboardMarkup.setKeyboard(keyboard);
@@ -137,12 +150,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
             }
 
-            else if (searchText.equals("Знайти пісню")){
+            else if (searchText.equals("Г‡Г­Г Г©ГІГЁ ГЇВіГ±Г­Гѕ")){
 
                 try {
                     SendMessage message = new SendMessage()
                             .setChatId(chatId)
-                            .setText(EmojiParser.parseToUnicode(":musical_note:Введіть назву пісні:musical_note:"));
+                            .setText(EmojiParser.parseToUnicode(":musical_note:Г‚ГўГҐГ¤ВіГІГј Г­Г Г§ГўГі ГЇВіГ±Г­Ві:musical_note:"));
                     execute(message);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
@@ -165,7 +178,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                     SendMessage message = new SendMessage()
                             .setChatId(chatId)
-                            .setText(EmojiParser.parseToUnicode(":headphones: Пісня: " + trackUrl + " :headphones:"));
+                            .setText(EmojiParser.parseToUnicode(":headphones: ГЏВіГ±Г­Гї: " + trackUrl + " :headphones:"));
 
                     execute(message);
 
@@ -176,11 +189,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
 
-            else if (searchText.equals("Прослухані пісні")){
+            else if (searchText.equals("ГЏГ°Г®Г±Г«ГіГµГ Г­Ві ГЇВіГ±Г­Ві")){
                 String popular = "https://open.spotify.com/genre/shortcuts";
                 SendMessage message = new SendMessage();
                 message.setChatId(chatId);
-                message.setText("Прослухані пісні " + popular);
+                message.setText("ГЏГ°Г®Г±Г«ГіГµГ Г­Ві ГЇВіГ±Г­Ві " + popular);
 
                 try {
                     execute(message);
@@ -189,12 +202,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
             }
 
-            else if (searchText.equals("Знайти виконавця")){
+            else if (searchText.equals("Г‡Г­Г Г©ГІГЁ ГўГЁГЄГ®Г­Г ГўГ¶Гї")){
 
                 try {
                     SendMessage message = new SendMessage()
                             .setChatId(chatId)
-                            .setText(EmojiParser.parseToUnicode(":musical_note:Введіть ім'я виконавця:musical_note:"));
+                            .setText(EmojiParser.parseToUnicode(":musical_note:Г‚ГўГҐГ¤ВіГІГј ВіГ¬'Гї ГўГЁГЄГ®Г­Г ГўГ¶Гї:musical_note:"));
                     execute(message);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
@@ -216,7 +229,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                     SendMessage message = new SendMessage()
                             .setChatId(chatId)
-                            .setText(EmojiParser.parseToUnicode(":headphones: Виконавець: " + artistUrl + " :headphones:"));
+                            .setText(EmojiParser.parseToUnicode(":headphones: Г‚ГЁГЄГ®Г­Г ГўГҐГ¶Гј: " + artistUrl + " :headphones:"));
 
                     execute(message);
 
