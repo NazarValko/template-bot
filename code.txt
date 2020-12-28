@@ -70,27 +70,32 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             String searchText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-            String answer = "";
 
-            if (searchText.equals("/login")){
+            if (searchText.equals(null)){
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
                         .setText("Введіть ім'я: ");
-                String username = update.getMessage().getChat().getUserName();
-
-                if (profile != null){
-                    SendMessage message1 = new SendMessage()
-                            .setChatId(chatId)
-                            .setText("Введіть інше ім'я");
-                    String username1 = update.getMessage().getChat().getUserName();
-                }
-                message.setText("Welcome " + profile.getUserByUsernameByPassword(username));
                 try {
                     execute(message);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
             }
+
+
+            else if (searchText.equals("/login")){
+
+                String username1 = update.getMessage().getChat().getUserName();
+                SendMessage message = new SendMessage()
+                        .setChatId(chatId)
+                        .setText("Welcome " + profile.getUserByUsernameByPassword(username1));
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
+
             else if (searchText.equals("/start")) {
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
